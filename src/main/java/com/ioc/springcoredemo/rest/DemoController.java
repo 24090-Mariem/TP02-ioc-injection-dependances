@@ -5,19 +5,29 @@ import com.ioc.springcoredemo.common.Coach;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.beans.factory.annotation.Qualifier;
 @RestController
 public class DemoController {
 
     private final Coach myCoach;
+    private final Coach anotherCoach;
+
 
     public DemoController(
-            @Qualifier("cricketCoach") Coach theCoach) {
+            @Qualifier("aquatic") Coach theCoach) {
         myCoach = theCoach;
+        anotherCoach = theCoach;
     }
+
 
     @GetMapping("/dailyworkout")
     public String getDailyWorkout() {
         return myCoach.getDailyWorkout();
+    }
+
+    @GetMapping("/check")
+    public String check() {
+        return "Comparing beans: myCoach == anotherCoach, "
+                + (myCoach == anotherCoach);
     }
 }
